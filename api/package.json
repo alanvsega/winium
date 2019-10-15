@@ -5,11 +5,18 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon src/index.js",
+    "fix": "eslint --ext .js src/ --fix",
+    "lint": "eslint --ext .js src/",
     "start": "node src/index.js"
   },
   "author": "winium",
   "license": "ISC",
   "dependencies": {
     "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "eslint": "^6.5.1",
+    "eslint-config-airbnb-base": "^14.0.0",
+    "eslint-plugin-import": "^2.18.2"
   }
 }
