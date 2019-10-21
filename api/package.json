@@ -4,10 +4,12 @@
   "description": "winium application API",
   "main": "index.js",
   "scripts": {
+    "coverage": "http-server coverage/lcov-report",
     "dev": "nodemon src/index.js",
     "fix": "eslint --ext .js src/ --fix",
     "lint": "eslint --ext .js src/",
-    "start": "node src/index.js"
+    "start": "node src/index.js",
+    "test": "jest"
   },
   "author": "winium",
   "license": "ISC",
@@ -17,6 +19,7 @@
   "devDependencies": {
     "eslint": "^6.5.1",
     "eslint-config-airbnb-base": "^14.0.0",
-    "eslint-plugin-import": "^2.18.2"
+    "eslint-plugin-import": "^2.18.2",
+    "http-server": "^0.11.1"
   }
 }
