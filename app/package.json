@@ -3,9 +3,9 @@
   "scripts": {
     "android": "expo start --android",
     "eject": "expo eject",
-    "fix": "eslint --ext .js src/ --fix",
+    "fix": "eslint --ext .jsx src/ --fix",
     "ios": "expo start --ios",
-    "lint": "eslint --ext .js src/",
+    "lint": "eslint --ext .jsx src/",
     "start": "expo start",
     "web": "expo start --web"
   },
