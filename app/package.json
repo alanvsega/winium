@@ -1,4 +1,6 @@
 {
+  "name": "winium-app",
+  "description": "winium mobile application",
   "main": "node_modules/expo/AppEntry.js",
   "scripts": {
     "start": "expo start",

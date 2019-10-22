@@ -1,6 +1,6 @@
 {
   "name": "winium-web",
-  "description": "winium application web",
+  "description": "winium web application",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
