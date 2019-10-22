@@ -1,6 +1,6 @@
 import React from 'react';
 
-const  App = () => (
+const App = () => (
   <div>
     <h1>winium</h1>
   </div>
