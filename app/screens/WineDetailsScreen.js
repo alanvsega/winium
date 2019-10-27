@@ -1,12 +1,15 @@
 import React from 'react';
 import {
   View,
+  ScrollView,
 } from 'react-native';
 import { connect } from 'react-redux';
 
 import MainStyle from '../styles/MainStyle';
 
-class HomeScreen extends React.Component {
+import BottomTabNavigator from '../components/BottomTabNavigator';
+
+class WineDetailsScreen extends React.Component {
   constructor(props) {
     super(props);
 
@@ -15,7 +18,12 @@ class HomeScreen extends React.Component {
 
   render() {
     return(
-      <View style={MainStyle.body}></View>
+      <View style={MainStyle.body}>
+        <ScrollView>
+
+        </ScrollView>
+        <BottomTabNavigator navigation={this.props.navigation}/>
+      </View>
     );
   }
 }
@@ -29,4 +37,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(HomeScreen);
+)(WineDetailsScreen);
