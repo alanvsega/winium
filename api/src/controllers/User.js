@@ -1,8 +1,11 @@
 const { compare, hash } = require('bcryptjs');
+const { sign } = require('jsonwebtoken');
 
 const User = require('../models/User');
 
 const SALT_ROUNDS = 7;
+
+const createToken = id => sign({ id }, process.env.JWT_KEY);
 
 const createUser = async (req, res) => {
   try {
@@ -12,8 +15,12 @@ const createUser = async (req, res) => {
     req.body.password = await hash(req.body.password, SALT_ROUNDS);
 
     const user = await User.create(req.body);
+    const token = createToken(user._id);
 
-    return res.json({ ...user.toObject(), password: undefined });
+    return res.json({
+      user: { ...user.toObject(), password: undefined },
+      token,
+    });
   } catch (error) {
     return res.send('Erro interno no servidor.');
   }
@@ -28,7 +35,12 @@ const login = async (req, res) => {
     const equals = await compare(password, user.password);
     if (!equals) return res.status(401).send('E-mail ou senha incorretos.');
 
-    return res.json({ ...user.toObject(), password: undefined });
+    const token = createToken(user._id);
+
+    return res.json({
+      user: { ...user.toObject(), password: undefined },
+      token,
+    });
   } catch (error) {
     return res.send('Erro interno no servidor.');
   }
