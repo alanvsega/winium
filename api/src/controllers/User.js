@@ -1,4 +1,4 @@
-const { hash } = require('bcryptjs');
+const { compare, hash } = require('bcryptjs');
 
 const User = require('../models/User');
 
@@ -12,7 +12,23 @@ const createUser = async (req, res) => {
     req.body.password = await hash(req.body.password, SALT_ROUNDS);
 
     const user = await User.create(req.body);
-    return res.json(user);
+
+    return res.json({ ...user.toObject(), password: undefined });
+  } catch (error) {
+    return res.send('Erro interno no servidor.');
+  }
+};
+
+const login = async (req, res) => {
+  try {
+    const { email, password } = req.body;
+    const user = await User.findOne({ email });
+    if (!user) return res.status(401).send('E-mail ou senha incorretos');
+
+    const equals = await compare(password, user.password);
+    if (!equals) return res.status(401).send('E-mail ou senha incorretos.');
+
+    return res.json({ ...user.toObject(), password: undefined });
   } catch (error) {
     return res.send('Erro interno no servidor.');
   }
@@ -20,4 +36,5 @@ const createUser = async (req, res) => {
 
 module.exports = {
   createUser,
+  login,
 };
