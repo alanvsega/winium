@@ -5,7 +5,7 @@ module.exports = (req, res, next) => {
     || req.originalUrl === '/login') return next();
 
   const { authorization } = req.headers;
-  if (!authorization) return res.status(401).send('Token não fornecido');
+  if (!authorization) return res.status(401).send('Token não fornecido.');
 
   const [, token] = authorization.split(' ');
 
@@ -14,6 +14,6 @@ module.exports = (req, res, next) => {
     req.userId = decoded.id;
     return next();
   } catch (error) {
-    return res.status(401).send('Não autorizado');
+    return res.status(401).send('Não autorizado.');
   }
 };

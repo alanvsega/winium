@@ -4,6 +4,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 
 mongoose.connect(process.env.MONGO_URI, {
+  useFindAndModify: false,
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
