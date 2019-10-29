@@ -13,6 +13,8 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
+app.use(require('./middlewares/auth'));
+
 app.use(require('./routes/User'));
 
 const port = process.env.PORT || 3000;
