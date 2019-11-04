@@ -1,0 +1,70 @@
+.home-container {
+  display: grid;
+  grid-template-columns: auto auto;
+  height: 100%;
+  width: 100%;
+  background-color: #4597A8;
+}
+
+.ranking-container {
+  height: 100%;
+  width: 100%;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  background-color: #E6E6E6;
+  grid-column-start: 2;
+  border-radius: 15px 0 0 15px;
+  box-shadow: -3px 3px 6px #00000033;
+}
+
+.ranking-container h1 {
+  color: #4DAAAB;
+  font-size: 30px;
+  text-align: center;
+  margin: 50px 0;
+}
+
+.home-not-logged {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  justify-items: center;
+}
+
+.brand-logo-img{
+    height: 150px;
+    margin: 30px 0;
+}
+
+.bran-call-container{
+    align-self: center;
+}
+
+.bran-call-container p{
+    color: #F0F1F2;
+    font-size: 25px;
+    text-align: center;
+}
+
+.buttons-home {
+  display: flex;
+  width: 90%;
+  margin: 50px 0;
+}
+
+.button-home-bottom {
+  background-color: #F5F225;
+  box-shadow: 0px 3px 6px #00000040;
+  border-radius: 10px;
+  display: flex;
+  justify-content: space-between;
+  padding: 15px 25px;
+  width: 50%;
+  border: none;
+  margin: 10px;
+}
+
+.button-home-bottom p {
+  font-size: 25px;
+  font-weight: 700;
+  color: #464646;
+}

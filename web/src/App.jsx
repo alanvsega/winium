@@ -1,8 +1,11 @@
 import React from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
+
 import './style.css';
 
-import Header from './components/header/index';
+import Header from './components/Header/index';
+import Home from './pages/Home/index';
+import Footer from './components/Footer/index';
 
 const App = () => (
   <Router>
@@ -11,9 +14,11 @@ const App = () => (
         <Header />
       </nav>
       <main>
-        <Route path="/" />
+        <Route path="/" exact component={Home}/>
       </main>
-      <footer />
+      <footer>
+        <Footer />
+      </footer>
     </div>
   </Router>
 );
