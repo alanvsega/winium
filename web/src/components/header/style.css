@@ -15,9 +15,9 @@
   margin: 10px;
   text-transform: uppercase;
   text-decoration: none;
-  color: #F0F1F2;
   font-weight: 700;
   font-size: 1.7em;
+  color: inherit;
 }
 
 .login-options-container {
@@ -30,13 +30,11 @@
 
 .login-options-container a {
   text-decoration: none;
-  color: #F5F225;
   font-weight: 700;
   font-size: 0.8em;
 }
 
 .login-options-container h3{
-  color: #F0F1F2;
   font-weight: 500;
   font-size: 1.3em;
 }

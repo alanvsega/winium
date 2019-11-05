@@ -18,3 +18,19 @@ body, html{
   padding: 0;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
+
+.font-color-dark{
+  color: #464646;
+}
+
+.font-color-light{
+  color: #F0F1F2;
+}
+
+.font-color-highlit-light{
+  color: #F5F225;
+}
+
+.font-color-highlit-dark{
+  color: #26596A;
+}

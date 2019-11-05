@@ -8,7 +8,7 @@ export default function HomeScreen() {
     <div className="home-container">
       <div className="home-not-logged">
         <img className="brand-logo-img" src={Logo} alt="winium logo" />
-        <div className="bran-call-container">
+        <div className="bran-call-container font-color-light">
           <p>
             Enjoy all winium features by creating an account.
           </p>
@@ -25,7 +25,7 @@ export default function HomeScreen() {
             - Rate your wines;
           </p>
         </div>
-        <div className="buttons-home">
+        <div className="buttons-home font-color-dark">
           <button className="button-home-bottom">
             <p>Create Account</p>
             <p>>></p>
@@ -37,7 +37,7 @@ export default function HomeScreen() {
         </div>
       </div>
       <div className="ranking-container">
-        <h1>Top 3 Word's Best Wines</h1>
+        <h1 className="font-color-highlit-dark">Top 3 Word's Best Wines</h1>
       </div>
     </div>
   );

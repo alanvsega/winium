@@ -9,7 +9,7 @@ export default function Header() {
       <div>
         <img className="logo-img" src={Logo} alt="It's a match" />
       </div>
-      <nav className="navigation-menu-container">
+      <nav className="navigation-menu-container font-color-light">
         <a href="./#">
           Home
         </a>
@@ -21,10 +21,10 @@ export default function Header() {
         </a>
       </nav>
       <div className="login-options-container">
-        <h3>Welcome Visitor</h3>
+        <h3 className="font-color-light">Welcome Visitor</h3>
         <div className="division" />
-        <a href="./#">Login</a>
-        <a href="./#">Sign Up</a>
+        <a href="./#" className="font-color-highlit-light">Login</a>
+        <a href="./#" className="font-color-highlit-light">Sign Up</a>
       </div>
     </div>
   );
