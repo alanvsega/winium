@@ -18,6 +18,12 @@
   font-weight: 700;
   font-size: 1.7em;
   color: inherit;
+
+  transition: ease all .3s;
+}
+
+.navigation-menu-container a:hover{
+  color: white;
 }
 
 .login-options-container {

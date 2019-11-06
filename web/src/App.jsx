@@ -14,7 +14,7 @@ const App = () => (
         <Header />
       </nav>
       <main>
-        <Route path="/" exact component={Home}/>
+        <Route path="/" exact component={Home} />
       </main>
       <footer>
         <Footer />
