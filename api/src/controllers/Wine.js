@@ -1,3 +1,5 @@
+const { Types: { ObjectId } } = require('mongoose');
+
 const Wine = require('../models/Wine');
 
 // @TODO: Habilitar pesquisa para os principais campos
@@ -5,7 +7,7 @@ const getWines = async (req, res) => {
   try {
     const { limit = 12, page = 1, sort = '-createdAt' } = req.query;
 
-    if (page < 1) return res.status(400).send('Invalid page.');
+    if (page < 1) return res.status(400).send('Página inválida.');
 
     const winesPromise = Wine.find()
       .limit(Number(limit))
@@ -22,6 +24,21 @@ const getWines = async (req, res) => {
   }
 };
 
+const getWine = async (req, res) => {
+  try {
+    const { id } = req.params;
+    if (!ObjectId.isValid(id)) return res.status(400).send('ID inválido.');
+
+    const wine = await Wine.findById(id);
+    if (!wine) return res.status(404).send('Vinho não encontrado.');
+
+    return res.json({ wine });
+  } catch (error) {
+    return res.status(500).send('Erro interno no servidor.');
+  }
+};
+
 module.exports = {
+  getWine,
   getWines,
 };

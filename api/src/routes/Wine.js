@@ -1,9 +1,9 @@
 const router = require('express').Router();
 
-const { getWines } = require('../controllers/Wine');
+const { getWine, getWines } = require('../controllers/Wine');
 
 router.get('/wines', getWines);
-router.get('/wine/:id');
+router.get('/wine/:id', getWine);
 router.post('/wine');
 router.patch('/wine/:id');
 
