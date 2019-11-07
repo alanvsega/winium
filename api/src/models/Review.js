@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
 
-const Wine = mongoose.Schema({
-  description: { type: String,  required: true },
-  points: { type: Number,  required: true },
+const Review = mongoose.Schema({
+  description: { type: String, required: true },
+  points: { type: Number, required: true },
   price: Number,
   user: { type: mongoose.SchemaTypes.ObjectId, required: true, ref: 'user' },
   wine: { type: mongoose.SchemaTypes.ObjectId, required: true, ref: 'wine' },
@@ -10,4 +10,4 @@ const Wine = mongoose.Schema({
   timestamps: true,
 });
 
-module.exports = mongoose.model('wine', Wine);
+module.exports = mongoose.model('review', Review);
