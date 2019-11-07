@@ -7,12 +7,16 @@ const getWines = async (req, res) => {
 
     if (page < 1) return res.status(400).send('Invalid page.');
 
-    const wines = await Wine.find()
+    const winesPromise = Wine.find()
       .limit(Number(limit))
       .skip(Number(limit * page - limit))
       .sort(sort);
 
-    return res.json({ wines });
+    const countPromise = Wine.countDocuments();
+
+    const [wines, count] = await Promise.all([winesPromise, countPromise]);
+
+    return res.json({ wines, totalPages: Math.ceil(count / limit) });
   } catch (error) {
     return res.status(500).send('Erro interno no servidor.');
   }
