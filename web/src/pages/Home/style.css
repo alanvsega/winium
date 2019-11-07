@@ -68,10 +68,12 @@
 
   cursor: pointer;
   transition: ease all .3s;
+  text-decoration: none;
 }
 
 .button-home:focus{
   box-shadow: 0px 1px 6px #00000040;
+  outline: none;
 }
 
 .button-home p {

@@ -9,6 +9,7 @@
 
 .logo-img {
   height: 50px;
+  cursor: pointer;
 }
 
 .navigation-menu-container a {
@@ -34,7 +35,8 @@
   grid-gap: 10px;
 }
 
-.login-options-container a {
+.login-options-container a,
+.login-options-container Link {
   text-decoration: none;
   font-weight: 700;
   font-size: 0.8em;

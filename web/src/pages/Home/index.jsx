@@ -1,5 +1,6 @@
 import React from 'react';
 import './style.css';
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCrown, faStar } from '@fortawesome/free-solid-svg-icons';
 
@@ -7,6 +8,7 @@ import WineTop1 from '../../assets/wine1.png';
 import WineTop2 from '../../assets/wine2.png';
 import WineTop3 from '../../assets/wine3.png';
 
+import {Link} from 'react-router-dom';
 import Logo from '../../assets/WiniumLogoWhite.png';
 
 export default function HomeScreen() {
@@ -16,16 +18,16 @@ export default function HomeScreen() {
         <img className="brand-logo-img" src={Logo} alt="winium logo" />
         <div className="bran-call-container font-color-light">
           <p>Enjoy all winium features by creating an account.</p>
-          <p>- The bet wine in your region;</p>
+          <p>- The best wine in your region;</p>
           <p>- Wine recomendations;</p>
           <p>- Your favorite wines statistics;</p>
           <p>- Rate your wines;</p>
         </div>
         <div className="buttons-container font-color-dark">
-          <button type="button" className="button-home">
+          <Link to="/create-account" className="button-home">
             <p>Create Account</p>
             <p>&gt;&gt;</p>
-          </button>
+          </Link>
           <button type="button" className="button-home">
             <p>Login</p>
             <p>&gt;&gt;</p>

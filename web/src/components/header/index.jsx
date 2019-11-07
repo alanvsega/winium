@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom'
 import './style.css';
 
 import Logo from '../../assets/WiniumLogoWhite.png';
@@ -24,7 +25,9 @@ export default function Header() {
         <h3 className="font-color-light">Welcome Visitor</h3>
         <div className="division" />
         <a href="./#" className="font-color-highlit-light">Login</a>
-        <a href="./#" className="font-color-highlit-light">Sign Up</a>
+        {/* <a href="./#" className="font-color-highlit-light">Sign Up</a> */}
+        {/* <Link to="/login">Login</Link> */}
+        <Link className="font-color-highlit-light" to="/create-account">Sign Up</Link>
       </div>
     </div>
   );
