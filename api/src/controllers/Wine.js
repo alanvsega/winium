@@ -38,7 +38,20 @@ const getWine = async (req, res) => {
   }
 };
 
+const createWine = async (req, res) => {
+  try {
+    const hasWine = await Wine.findOne({ designation: req.body.designation });
+    if (hasWine) return res.status(409).send('Vinho já existe.');
+
+    const wine = await Wine.create(req.body);
+    return res.json({ wine });
+  } catch (error) {
+    return res.status(500).send('Erro interno no servidor.');
+  }
+};
+
 module.exports = {
+  createWine,
   getWine,
   getWines,
 };
