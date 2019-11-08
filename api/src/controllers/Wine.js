@@ -50,8 +50,21 @@ const createWine = async (req, res) => {
   }
 };
 
+const updateWine = async (req, res) => {
+  try {
+    const { id } = req.params;
+    if (!ObjectId.isValid(id)) return res.status(400).send('ID inválido.');
+
+    const wine = await Wine.findByIdAndUpdate(id, req.body);
+    return res.json({ wine });
+  } catch (error) {
+    return res.status(500).send('Erro interno no servidor.');
+  }
+};
+
 module.exports = {
   createWine,
   getWine,
   getWines,
+  updateWine,
 };
