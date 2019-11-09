@@ -66,7 +66,7 @@
 }
 
 .brand-header-container {
-  margin: 20px 300px;
+  margin: 20px 200px;
   display: flex;
   justify-items: center;
   flex-direction: column;
@@ -84,28 +84,30 @@
   padding: 5%;
 }
 
-.create-account-form input{
-    padding: 5px 3px;
-    border: none;
-    border-bottom: solid #464646;
-    font-size: 1.2em;
-    width: 100%;
+.create-account-form input {
+  padding: 5px 3px;
+  border: none;
+  border-bottom: solid #464646;
+  font-size: 1.2em;
+  width: 100%;
 }
 
-.create-account-form input:focus{
-    outline: none;
+.create-account-form input:focus,
+.create-account-form select:focus {
+  outline: none;
 }
 
-.create-account-form label{
-    font-weight: 700;
-    font-size: 1.4em;
+.create-account-form label {
+  font-weight: 700;
+  font-size: 1.4em;
 }
 
-.account-inputs-container{
+.account-inputs-container {
   display: flex;
   justify-content: space-between;
 }
 
-.input-group-container{
-    padding: 2px 10px;
+.input-group-container {
+  padding: 2px 10px;
+  width: 100%;
 }
