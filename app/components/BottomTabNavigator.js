@@ -40,7 +40,7 @@ export default class BottomTabNavigator extends React.Component {
             />
           </View>
         </TouchableWithoutFeedback>
-        <TouchableWithoutFeedback onPress={() => this.navigate('Login')}>
+        <TouchableWithoutFeedback onPress={() => this.navigate('Register')}>
           <View style= {Style.tabItem}>
             <Feather
               name='users'
