@@ -1,6 +1,7 @@
 import React from 'react';
 import './style.css';
 
+import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCrown, faStar } from '@fortawesome/free-solid-svg-icons';
 
@@ -8,7 +9,6 @@ import WineTop1 from '../../assets/wine1.png';
 import WineTop2 from '../../assets/wine2.png';
 import WineTop3 from '../../assets/wine3.png';
 
-import {Link} from 'react-router-dom';
 import Logo from '../../assets/WiniumLogoWhite.png';
 
 export default function HomeScreen() {
@@ -24,14 +24,20 @@ export default function HomeScreen() {
           <p>- Rate your wines;</p>
         </div>
         <div className="buttons-container font-color-dark">
-          <Link to="/create-account" className="button-home">
+          <Link
+            to="/create-account"
+            className="button-home background-highlight featured-button"
+          >
             <p>Create Account</p>
             <p>&gt;&gt;</p>
           </Link>
-          <button type="button" className="button-home">
+          <Link
+            to="/login"
+            className="button-home background-highlight featured-button"
+          >
             <p>Login</p>
             <p>&gt;&gt;</p>
-          </button>
+          </Link>
         </div>
       </div>
       <div className="ranking-container">

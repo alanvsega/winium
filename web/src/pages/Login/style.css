@@ -1,0 +1,48 @@
+.background-container {
+  display: flex;
+  height: 100%;
+}
+
+.user-login-container {
+  width: 60%;
+  margin: auto;
+  box-shadow: 0px 3px 10px #00000033;
+  border-radius: 8px;
+  height: 100%;
+  padding: 35px 75px;
+  box-sizing: border-box;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.user-login-container img {
+  height: 100px;
+  margin: 50px auto;
+}
+
+.login-form input {
+  border-bottom: solid #F0F1F2;
+}
+
+.login-form label {
+  font-weight: 700;
+  font-size: 1.4em;
+}
+
+.brand-call-text {
+  font-size: 1.7em;
+  font-weight: 700;
+  text-align: center;
+  margin: 50px 0;
+}
+
+.button-options-container {
+  box-sizing: border-box;
+  display: flex;
+}
+
+.button-options-container a,
+.button-options-container button {
+  width: 100%;
+}

@@ -1,36 +1,98 @@
-body, html{
-  height: 100%;
-}
-
-#root{
-  height: 100%;
-}
-
-.main-container{
-    display: grid;
-    grid-template-rows: auto 1fr auto;
-    height: 100%;
-    border: none;
-}
-
-*{
+* {
   margin: 0;
   padding: 0;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-.font-color-dark{
+body,
+html {
+  height: 100%;
+}
+
+#root {
+  height: 100%;
+}
+
+.main-container {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  height: 100%;
+  border: none;
+}
+
+.font-color-dark {
   color: #464646;
 }
 
-.font-color-light{
+.font-color-light {
   color: #F0F1F2;
 }
 
-.font-color-highlit-light{
+.font-color-highlit-light {
   color: #F5F225;
 }
 
-.font-color-highlit-dark{
+.font-color-highlit-dark {
   color: #26596A;
+}
+
+.background-main-gradient {
+  background: linear-gradient(140deg, #4DAAAB 0%, #4688BD 100%);
+}
+
+.background-main-dark {
+  background-color: #26596A;
+}
+
+.background-highlight {
+  background-color: #F5F225;
+}
+
+.featured-button {
+  padding: 15px 25px;
+  margin: 10px;
+  border: none;
+
+  display: flex;
+  align-items: center;
+
+  color: inherit;
+  box-shadow: 0px 3px 6px #00000040;
+  border-radius: 10px;
+
+  cursor: pointer;
+  transition: ease all .3s;
+  text-decoration: none;
+}
+
+.featured-button:focus {
+  box-shadow: 0px 1px 6px #00000040;
+  outline: none;
+}
+
+.input-group-container {
+  width: 100%;
+  padding: 2px 10px;
+  box-sizing: border-box;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.input-group-container input {
+  width: 100%;
+  padding: 5px 3px;
+  box-sizing: border-box;
+
+
+  border: none;
+  border-bottom: solid #464646;
+  background-color: transparent;
+
+  color: inherit;
+  font-size: 1.2em;
+}
+
+.input-group-container input:focus {
+  outline: none;
 }

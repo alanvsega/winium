@@ -7,6 +7,7 @@ import Header from './components/Header/index';
 import Footer from './components/Footer/index';
 import Home from './pages/Home/index';
 import CreateAccount from './pages/CreateAccount/index';
+import Login from './pages/Login/index';
 
 const App = () => (
   <Router>
@@ -17,6 +18,7 @@ const App = () => (
       <main>
         <Route path="/" exact component={Home} />
         <Route path="/create-account" exact component={CreateAccount} />
+        <Route path="/login" exact component={Login} />
       </main>
       <footer>
         <Footer />
