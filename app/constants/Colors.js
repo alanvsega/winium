@@ -3,4 +3,5 @@ export default COLORS = {
   mediumGrey: '#B5B5B5',
   darkGrey: '#464646',
   yellow: '#F5F225',
+  mediumBlue: '#4688BD',
 }
