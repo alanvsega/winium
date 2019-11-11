@@ -25,7 +25,7 @@ class WineListScreen extends React.Component {
   render() {
     return(
       <View style={MainStyle.body}>
-        <ScrollView>
+        <ScrollView style={MainStyle.content}>
           <View style={MainStyle.row}>
             <TextInput
               style={Style.searchField}

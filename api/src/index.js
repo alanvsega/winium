@@ -17,6 +17,7 @@ app.use(cors());
 app.use(require('./middlewares/auth'));
 
 app.use(require('./routes/User'));
+app.use(require('./routes/Wine'));
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => {

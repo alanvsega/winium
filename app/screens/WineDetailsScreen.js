@@ -19,7 +19,7 @@ class WineDetailsScreen extends React.Component {
   render() {
     return(
       <View style={MainStyle.body}>
-        <ScrollView>
+        <ScrollView style={MainStyle.content}>
 
         </ScrollView>
         <BottomTabNavigator navigation={this.props.navigation}/>

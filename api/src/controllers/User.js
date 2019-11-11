@@ -30,7 +30,7 @@ const login = async (req, res) => {
   try {
     const { email, password } = req.body;
     const user = await User.findOne({ email });
-    if (!user) return res.status(401).send('E-mail ou senha incorretos');
+    if (!user) return res.status(401).send('E-mail ou senha incorretos.');
 
     const equals = await compare(password, user.password);
     if (!equals) return res.status(401).send('E-mail ou senha incorretos.');
@@ -74,7 +74,7 @@ const getUser = async (req, res) => {
       user: { ...user.toObject(), password: undefined },
     });
   } catch (error) {
-    return res.status(500).send('Erro interno no servidor');
+    return res.status(500).send('Erro interno no servidor.');
   }
 };
 
