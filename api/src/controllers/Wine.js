@@ -2,23 +2,37 @@ const { Types: { ObjectId } } = require('mongoose');
 
 const Wine = require('../models/Wine');
 
+const filtersWhitelist = [
+  'country',
+  'variety',
+];
+
+const buildQuery = query => Object.keys(query)
+  .reduce((acc, item) => {
+    if (filtersWhitelist.includes(item)) {
+      acc[item] = query[item];
+    }
+    return acc;
+  }, {});
+
 // @TODO: Habilitar pesquisa para os principais campos
 const getWines = async (req, res) => {
   try {
     const { limit = 12, page = 1, sort = '-createdAt' } = req.query;
+    const query = buildQuery(req.query);
 
     if (page < 1) return res.status(400).send('Página inválida.');
 
-    const winesPromise = Wine.find()
+    const winesPromise = Wine.find(query)
       .limit(Number(limit))
       .skip(Number(limit * page - limit))
       .sort(sort);
 
-    const countPromise = Wine.countDocuments();
+    const countPromise = Wine.countDocuments(query);
 
     const [wines, count] = await Promise.all([winesPromise, countPromise]);
 
-    return res.json({ wines, totalPages: Math.ceil(count / limit) });
+    return res.json({ wines, pages: Math.ceil(count / limit) });
   } catch (error) {
     return res.status(500).send('Erro interno no servidor.');
   }
