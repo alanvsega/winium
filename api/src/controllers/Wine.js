@@ -76,8 +76,19 @@ const updateWine = async (req, res) => {
   }
 };
 
+const getVarieties = async (req, res) => {
+  try {
+    const varieties = await Wine.find().distinct('variety');
+
+    return res.json({ varieties });
+  } catch (error) {
+    return res.status(500).send('Erro interno no servidor.');
+  }
+};
+
 module.exports = {
   createWine,
+  getVarieties,
   getWine,
   getWines,
   updateWine,
