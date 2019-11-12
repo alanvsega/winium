@@ -7,6 +7,12 @@ const filtersWhitelist = [
   'variety',
 ];
 
+const searchFields = [
+  'designation',
+  'variety',
+  'winery',
+];
+
 const buildQuery = query => Object.keys(query)
   .reduce((acc, item) => {
     if (filtersWhitelist.includes(item)) {
@@ -15,11 +21,27 @@ const buildQuery = query => Object.keys(query)
     return acc;
   }, {});
 
+const buildSearch = search => searchFields
+  .reduce((acc, field) => ([
+    ...acc,
+    { [field]: { $regex: new RegExp(`^.*${search}.*$`, 'i') } },
+  ]), []);
+
 // @TODO: Habilitar pesquisa para os principais campos
 const getWines = async (req, res) => {
   try {
-    const { limit = 12, page = 1, sort = '-createdAt' } = req.query;
+    const {
+      limit = 12,
+      page = 1,
+      search,
+      sort = '-createdAt',
+    } = req.query;
+
     const query = buildQuery(req.query);
+
+    if (search) {
+      query.$or = buildSearch(search);
+    }
 
     if (page < 1) return res.status(400).send('Página inválida.');
 

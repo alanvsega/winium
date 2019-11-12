@@ -12,4 +12,11 @@ const Wine = mongoose.Schema({
   timestamps: true,
 });
 
+Wine.index({
+  country: 1,
+  designation: 1,
+  variety: 1,
+  winery: 1,
+});
+
 module.exports = mongoose.model('wine', Wine);
