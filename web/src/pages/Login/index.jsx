@@ -6,7 +6,7 @@ import Logo from '../../assets/WiniumLogoWhite.png';
 
 export default function Login() {
   return (
-    <div className="background-container">
+    <div className="background-container background-main-light">
       <div className="user-login-container background-main-gradient">
         <img src={Logo} alt="winium brand logo" />
         <form action="" className="login-form font-color-light">
@@ -19,11 +19,11 @@ export default function Login() {
             <input type="password" name="password" />
           </div>
           <div className="button-options-container">
-            <Link to="/create-account" className="featured-button">
-              <p>Sign Up</p>
+            <Link to="/create-account" className="featured-button signup-button">
+              <p className="font-color-highlight-light">Sign Up</p>
             </Link>
-            <button type="submit" className="featured-button">
-              <p>Login</p>
+            <button type="submit" className="featured-button background-highlight">
+              <p className="font-color-dark" >Login</p>
             </button>
           </div>
         </form>

@@ -29,19 +29,17 @@ export default function HomeScreen() {
             className="button-home background-highlight featured-button"
           >
             <p>Create Account</p>
-            <p>&gt;&gt;</p>
           </Link>
           <Link
             to="/login"
             className="button-home background-highlight featured-button"
           >
             <p>Login</p>
-            <p>&gt;&gt;</p>
           </Link>
         </div>
       </div>
-      <div className="ranking-container">
-        <h1 className="font-color-highlit-dark">
+      <div className="ranking-container background-main-light">
+        <h1 className="font-color-highlight-dark">
           Top 3 Word&apos;s Best Wines
         </h1>
         <div className="ranking">
@@ -57,7 +55,7 @@ export default function HomeScreen() {
               className="ranking-item-thumb ranking-2"
             />
             <h3 className="font-color-dark">Wine 1</h3>
-            <div className="points-container font-color-highlit-dark">
+            <div className="points-container font-color-highlight-dark">
               <FontAwesomeIcon icon={faStar} />
               <h2>99</h2>
             </div>
@@ -74,7 +72,7 @@ export default function HomeScreen() {
               className="ranking-item-thumb ranking-1"
             />
             <h3 className="font-color-dark">Wine 2</h3>
-            <div className="points-container font-color-highlit-dark">
+            <div className="points-container font-color-highlight-dark">
               <FontAwesomeIcon icon={faStar} />
               <h2>99</h2>
             </div>
@@ -91,7 +89,7 @@ export default function HomeScreen() {
               className="ranking-item-thumb ranking-3"
             />
             <h3 className="font-color-dark">Wine 3</h3>
-            <div className="points-container font-color-highlit-dark">
+            <div className="points-container font-color-highlight-dark">
               <FontAwesomeIcon icon={faStar} />
               <h2>99</h2>
             </div>

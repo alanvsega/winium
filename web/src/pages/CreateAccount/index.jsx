@@ -94,7 +94,7 @@ export default function CreateAccount() {
               type="button"
               className="login-button featured-button"
             >
-              <p className="font-color-highlit-dark">Login</p>
+              <p className="font-color-highlight-dark">Login</p>
             </Link>
             <button
               type="submit"

@@ -8,6 +8,7 @@ import Footer from './components/Footer/index';
 import Home from './pages/Home/index';
 import CreateAccount from './pages/CreateAccount/index';
 import Login from './pages/Login/index';
+import Catalog from './pages/Catalog/index';
 
 const App = () => (
   <Router>
@@ -19,6 +20,7 @@ const App = () => (
         <Route path="/" exact component={Home} />
         <Route path="/create-account" exact component={CreateAccount} />
         <Route path="/login" exact component={Login} />
+        <Route path="/catalog" exact component={Catalog} />
       </main>
       <footer>
         <Footer />
