@@ -27,7 +27,6 @@ const buildSearch = search => searchFields
     { [field]: { $regex: new RegExp(`^.*${search}.*$`, 'i') } },
   ]), []);
 
-// @TODO: Habilitar pesquisa para os principais campos
 const getWines = async (req, res) => {
   try {
     const {
@@ -54,7 +53,7 @@ const getWines = async (req, res) => {
 
     const [wines, count] = await Promise.all([winesPromise, countPromise]);
 
-    return res.json({ wines, pages: Math.ceil(count / limit) });
+    return res.json({ wines, total: count, pages: Math.ceil(count / limit) });
   } catch (error) {
     return res.status(500).send('Erro interno no servidor.');
   }
@@ -100,9 +99,9 @@ const updateWine = async (req, res) => {
 
 const getVarieties = async (req, res) => {
   try {
-    const varieties = await Wine.find().distinct('variety');
+    const varieties = await Wine.distinct('variety');
 
-    return res.json({ varieties });
+    return res.json({ varieties: varieties.sort() });
   } catch (error) {
     return res.status(500).send('Erro interno no servidor.');
   }
