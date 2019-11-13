@@ -1,6 +1,7 @@
 const { Types: { ObjectId } } = require('mongoose');
 
 const Wine = require('../models/Wine');
+const Review = require('../models/Review');
 
 const filtersWhitelist = [
   'country',
@@ -26,6 +27,15 @@ const buildSearch = search => searchFields
     ...acc,
     { [field]: { $regex: new RegExp(`^.*${search}.*$`, 'i') } },
   ]), []);
+
+const addAverage = async wine => {
+  const reviews = await Review.find({ wine: wine._id });
+  const sum = reviews.reduce((acc, review) => (acc + review.points), 0);
+  const average = reviews.length
+    ? Math.round(sum / reviews.length)
+    : null;
+  return { ...wine, average };
+};
 
 const getWines = async (req, res) => {
   try {
@@ -53,7 +63,14 @@ const getWines = async (req, res) => {
 
     const [wines, count] = await Promise.all([winesPromise, countPromise]);
 
-    return res.json({ wines, total: count, pages: Math.ceil(count / limit) });
+    const averagePromises = wines.map(wine => addAverage(wine.toObject()));
+    const winesWithAverage = await Promise.all(averagePromises);
+
+    return res.json({
+      pages: Math.ceil(count / limit),
+      total: count,
+      wines: winesWithAverage,
+    });
   } catch (error) {
     return res.status(500).send('Erro interno no servidor.');
   }
