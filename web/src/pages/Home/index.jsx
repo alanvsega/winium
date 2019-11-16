@@ -13,7 +13,7 @@ import Logo from '../../assets/WiniumLogoWhite.png';
 
 export default function HomeScreen() {
   return (
-    <div className="home-container">
+    <div className="home-container background-main-gradient">
       <div className="home-not-logged">
         <img className="brand-logo-img" src={Logo} alt="winium logo" />
         <div className="bran-call-container font-color-light">

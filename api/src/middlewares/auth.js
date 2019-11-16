@@ -1,8 +1,14 @@
 const { verify } = require('jsonwebtoken');
 
 module.exports = (req, res, next) => {
-  if ((req.originalUrl === '/user' && req.method === 'POST')
-    || req.originalUrl === '/login') return next();
+  if (
+    (req.originalUrl === '/user' && req.method === 'POST') ||
+    (req.originalUrl === '/wine' &&
+      !(req.method === 'PATCH' || req.method === 'POST')) ||
+    req.originalUrl === '/wines' ||
+    req.originalUrl === '/login'
+  )
+    return next();
 
   const { authorization } = req.headers;
   if (!authorization) return res.status(401).send('Token não fornecido.');

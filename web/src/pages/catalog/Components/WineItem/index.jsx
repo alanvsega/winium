@@ -8,10 +8,10 @@ export default function WineItem(props) {
   return (
     <div className="wine-container">
       <div className="wine-car-content">
-        <p>{wine.name}</p>
+        <p>{wine.designation}</p>
       </div>
       <div className="wine-footer">
-        <p>{wine.name}</p>
+        <p>{wine.designation}</p>
       </div>
     </div>
   );
