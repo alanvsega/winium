@@ -1,19 +1,19 @@
-import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import DatePicker from "react-datepicker";
-import Select from "react-select";
+import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import DatePicker from 'react-datepicker';
+import Select from 'react-select';
 
-import Logo from "../../assets/WiniumSimpleLogo.png";
+import Logo from '../../assets/WiniumSimpleLogo.png';
 
-import "react-datepicker/dist/react-datepicker.css";
-import "./style.css";
+import 'react-datepicker/dist/react-datepicker.css';
+import './style.css';
 
 export default function CreateAccount() {
   const [startDate, setStartDate] = useState(new Date());
   const [countries, setCountries] = useState([]);
 
   async function GetCountries() {
-    fetch("https://restcountries.eu/rest/v2/all").then(async res => {
+    fetch('https://restcountries.eu/rest/v2/all').then(async (res) => {
       const resultCountries = await res.json();
       setCountries(resultCountries);
     });
@@ -28,7 +28,7 @@ export default function CreateAccount() {
   }
 
   return (
-    <div className="create-account-container">
+    <div className="create-account-container background-main-light">
       <div className="brand-details-container">
         <div className="background-img-contaier font-color-dark">
           <button

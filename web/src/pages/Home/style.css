@@ -1,6 +1,6 @@
 .home-container {
   display: grid;
-  grid-template-columns: auto auto;
+  grid-template-columns: auto 1fr;
   height: 100%;
   width: 100%;
   background-color: #4597A8;
@@ -25,14 +25,18 @@
 }
 
 .home-not-logged {
-  display: grid;
-  grid-template-rows: auto 1fr auto;
+  padding: 35px 75px;
+
+  display: flex;
+  flex-direction: column;
   justify-items: center;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .brand-logo-img {
   height: 150px;
-  margin: 30px 100px;
+  margin: 30px 0;
 }
 
 .bran-call-container {
@@ -46,10 +50,8 @@
 
 .buttons-container {
   display: flex;
-  margin: 50px 0;
   width: 90%;
   justify-content: space-between;
-  /* width: 90%; */
 }
 
 .button-home {
@@ -61,6 +63,7 @@
   font-size: 25px;
   font-weight: 700;
   color: inherit;
+  white-space: nowrap;
 }
 
 .ranking {

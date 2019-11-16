@@ -1,28 +1,33 @@
 .background-container {
-  display: flex;
+  display: grid;
+  grid-template-columns: auto 1fr;
   height: 100%;
+  align-items: center;
 }
 
 .user-login-container {
-  width: 50%;
-  margin: auto;
-  box-shadow: 0px 3px 10px #00000033;
-  border-radius: 8px;
   height: 100%;
+  max-width: 700px;
+
   padding: 35px 75px;
   box-sizing: border-box;
 
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
+  justify-items: center;
+  align-items: center;
+
+  box-shadow: 0px 3px 10px #00000033;
+  border-radius: 0 8px 8px 0;
 }
 
-.user-login-container img {
-  height: 100px;
-  margin: 50px auto;
+.login-form {
+  width: 100%;
 }
 
 .login-form input {
-  border-bottom: solid #F0F1F2;
+  border-bottom: solid #f0f1f2;
 }
 
 .login-form label {
@@ -48,6 +53,18 @@
   width: 100%;
 }
 
-.signup-button{
-  border: solid 4px #F5F225;
+.signup-button {
+  border: solid 4px #f5f225;
+}
+
+.aside-image-container {
+  padding: 10%;
+  grid-column: 2;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.aside-image-container img {
+  width: 100%;
+  max-height: 500px;
 }

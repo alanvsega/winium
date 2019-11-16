@@ -11,35 +11,33 @@ const initialState = Immutable({
   logged: false,
 });
 
-export default user = (state = initialState, action) => {
+const user = (state = initialState, action) => {
   switch (action.type) {
     case LOGIN_REQUEST: {
       return state.merge({
         loading: action.payload,
-      })
+      });
     }
     case LOGIN_SUCCESS: {
       return state.merge({
         loading: false,
         logged: true,
-      })
+      });
     }
     case LOGOUT_SUCCESS: {
       return state.merge({
         loading: false,
         logged: false,
-      })
+      });
     }
     default: {
       return state;
     }
   }
-}
+};
 
-export const isLoading = (state) => {
-  return state.user.loading;
-}
+export const isLoading = (state) => state.user.loading;
 
-export const isLogged = (state) => {
-  return state.user.logged;
-}
+export const isLogged = (state) => state.user.logged;
+
+export default user;

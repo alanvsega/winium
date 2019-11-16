@@ -47,7 +47,7 @@ export default function HomeScreen() {
             <FontAwesomeIcon
               className="crown-icon"
               icon={faCrown}
-              style={{ color: "C0C0C0" }}
+              style={{ color: 'C0C0C0' }}
             />
             <img
               src={WineTop2}
@@ -64,7 +64,7 @@ export default function HomeScreen() {
             <FontAwesomeIcon
               className="crown-icon"
               icon={faCrown}
-              style={{ color: "FFD700" }}
+              style={{ color: 'FFD700' }}
             />
             <img
               src={WineTop1}
@@ -81,7 +81,7 @@ export default function HomeScreen() {
             <FontAwesomeIcon
               className="crown-icon"
               icon={faCrown}
-              style={{ color: "#CD7F32" }}
+              style={{ color: '#CD7F32' }}
             />
             <img
               src={WineTop3}
