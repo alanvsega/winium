@@ -1,0 +1,54 @@
+.header-container {
+  background-color: #26596A;
+  padding: 5px 15px;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  justify-items: center;
+}
+
+.logo-img {
+  height: 50px;
+  cursor: pointer;
+}
+
+.navigation-menu-container a {
+  margin: 10px;
+  text-transform: uppercase;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 1.7em;
+  color: inherit;
+
+  transition: ease all .3s;
+}
+
+.navigation-menu-container a:hover{
+  color: white;
+}
+
+.login-options-container {
+  display: grid;
+  grid-template-columns: auto auto auto auto;
+  justify-content: space-evenly;
+  align-items: center;
+  grid-gap: 10px;
+}
+
+.login-options-container a,
+.login-options-container Link {
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 0.8em;
+}
+
+.login-options-container h3{
+  font-weight: 500;
+  font-size: 1.3em;
+}
+
+.division {
+  height: 100%;
+  width: 2px;
+  background-color: #F0F1F2;
+}
