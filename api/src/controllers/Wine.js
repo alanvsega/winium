@@ -1,39 +1,33 @@
-const { Types: { ObjectId } } = require('mongoose');
+const {
+  Types: { ObjectId },
+} = require('mongoose');
 
 const Wine = require('../models/Wine');
 const Review = require('../models/Review');
 
-const filtersWhitelist = [
-  'country',
-  'variety',
-];
+const filtersWhitelist = ['country', 'variety'];
 
-const searchFields = [
-  'designation',
-  'variety',
-  'winery',
-];
+const searchFields = ['designation', 'variety', 'winery'];
 
-const buildQuery = query => Object.keys(query)
-  .reduce((acc, item) => {
-    if (filtersWhitelist.includes(item)) {
-      acc[item] = query[item];
-    }
-    return acc;
-  }, {});
+const buildQuery = query => Object.keys(query).reduce((acc, item) => {
+  if (filtersWhitelist.includes(item)) {
+    acc[item] = query[item];
+  }
+  return acc;
+}, {});
 
-const buildSearch = search => searchFields
-  .reduce((acc, field) => ([
+const buildSearch = search => searchFields.reduce(
+  (acc, field) => [
     ...acc,
     { [field]: { $regex: new RegExp(`^.*${search}.*$`, 'i') } },
-  ]), []);
+  ],
+  [],
+);
 
 const addAverage = async wine => {
   const reviews = await Review.find({ wine: wine._id });
-  const sum = reviews.reduce((acc, review) => (acc + review.points), 0);
-  const average = reviews.length
-    ? Math.round(sum / reviews.length)
-    : null;
+  const sum = reviews.reduce((acc, review) => acc + review.points, 0);
+  const average = reviews.length ? Math.round(sum / reviews.length) : null;
   return { ...wine, average };
 };
 
@@ -114,6 +108,35 @@ const updateWine = async (req, res) => {
   }
 };
 
+const getWineReviews = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const {
+      limit = 15,
+      page = 1,
+    } = req.query;
+
+    if (!ObjectId.isValid(id)) return res.status(400).send('ID inválido.');
+
+    const reviewsPromise = Review.find({ wine: id })
+      .limit(Number(limit))
+      .skip(Number(limit * page - limit))
+      .sort('-createdAt');
+
+    const countPromise = Review.countDocuments({ wine: id });
+
+    const [reviews, count] = await Promise.all([reviewsPromise, countPromise]);
+
+    return res.json({
+      pages: Math.ceil(count / limit),
+      total: count,
+      reviews,
+    });
+  } catch (error) {
+    return res.status(500).send('Erro interno no servidor.');
+  }
+};
+
 const getVarieties = async (req, res) => {
   try {
     const varieties = await Wine.distinct('variety');
@@ -127,6 +150,7 @@ const getVarieties = async (req, res) => {
 module.exports = {
   createWine,
   getVarieties,
+  getWineReviews,
   getWine,
   getWines,
   updateWine,
