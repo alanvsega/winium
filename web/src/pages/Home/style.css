@@ -1,0 +1,105 @@
+.home-container {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  height: 100%;
+  width: 100%;
+  background-color: #4597A8;
+}
+
+.ranking-container {
+  height: 100%;
+  width: 100%;
+  grid-column-start: 2;
+
+  display: grid;
+  grid-template-rows: auto 1fr;
+
+  border-radius: 15px 0 0 15px;
+  box-shadow: -3px 3px 6px #00000033;
+}
+
+.ranking-container h1 {
+  font-size: 30px;
+  text-align: center;
+  margin: 50px 0;
+}
+
+.home-not-logged {
+  padding: 35px 75px;
+
+  display: flex;
+  flex-direction: column;
+  justify-items: center;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.brand-logo-img {
+  height: 150px;
+  margin: 30px 0;
+}
+
+.bran-call-container {
+  align-self: center;
+}
+
+.bran-call-container p {
+  font-size: 25px;
+  text-align: center;
+}
+
+.buttons-container {
+  display: flex;
+  width: 90%;
+  justify-content: space-between;
+}
+
+.button-home {
+  width: 100%;
+  justify-content: space-between;
+}
+
+.button-home p {
+  font-size: 25px;
+  font-weight: 700;
+  color: inherit;
+  white-space: nowrap;
+}
+
+.ranking {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.ranking-item {
+  display: flex;
+  flex-direction: column;
+  justify-items: center;
+  align-items: center;
+  margin: 0 25px;
+}
+
+.ranking-item-thumb {
+  border-radius: 50%;
+  border: 4px solid #F0F1F2;
+  object-fit: contain;
+  width: 100%;
+  max-width: 200px;
+}
+
+.top2, .top3 {
+  margin-top: 50px;
+}
+
+.crown-icon {
+  margin: 20px;
+  font-size: 2.7em;
+}
+
+.points-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 1.2em;
+}
