@@ -1,6 +1,7 @@
 const {
   Types: { ObjectId },
 } = require('mongoose');
+const axios = require('axios');
 
 const Wine = require('../models/Wine');
 const Review = require('../models/Review');
@@ -9,36 +10,46 @@ const filtersWhitelist = ['country', 'variety'];
 
 const searchFields = ['designation', 'variety', 'winery'];
 
-const buildQuery = query => Object.keys(query).reduce((acc, item) => {
-  if (filtersWhitelist.includes(item)) {
-    acc[item] = query[item];
-  }
-  return acc;
-}, {});
+const buildQuery = (query) =>
+  Object.keys(query).reduce((acc, item) => {
+    if (filtersWhitelist.includes(item)) {
+      acc[item] = query[item];
+    }
+    return acc;
+  }, {});
 
-const buildSearch = search => searchFields.reduce(
-  (acc, field) => [
-    ...acc,
-    { [field]: { $regex: new RegExp(`^.*${search}.*$`, 'i') } },
-  ],
-  [],
-);
+const buildSearch = (search) =>
+  searchFields.reduce(
+    (acc, field) => [
+      ...acc,
+      { [field]: { $regex: new RegExp(`^.*${search}.*$`, 'i') } },
+    ],
+    [],
+  );
 
-const addAverage = async wine => {
+const addAverage = async (wine) => {
   const reviews = await Review.find({ wine: wine._id });
   const sum = reviews.reduce((acc, review) => acc + review.points, 0);
   const average = reviews.length ? Math.round(sum / reviews.length) : null;
   return { ...wine, average };
 };
 
+const addImgSrc = async (wine) => {
+  const response = await axios.get(
+    `https://www.googleapis.com/customsearch/v1/siterestrict?key=${process.env.API_KEY}&cx=${process.env.SEARCH_MECHANISM}=${wine.designation}&searchType=image`,
+  );
+
+  if (response.data.items) {
+    const [{ link }] = response.data.items;
+    return { ...wine, src: link };
+  }
+
+  return wine;
+};
+
 const getWines = async (req, res) => {
   try {
-    const {
-      limit = 12,
-      page = 1,
-      search,
-      sort = '-createdAt',
-    } = req.query;
+    const { limit = 12, page = 1, search, sort = '-createdAt' } = req.query;
 
     const query = buildQuery(req.query);
 
@@ -54,11 +65,12 @@ const getWines = async (req, res) => {
       .sort(sort);
 
     const countPromise = Wine.countDocuments(query);
-
     const [wines, count] = await Promise.all([winesPromise, countPromise]);
 
-    const averagePromises = wines.map(wine => addAverage(wine.toObject()));
-    const winesWithAverage = await Promise.all(averagePromises);
+    const averagePromises = wines.map((wine) => addAverage(wine.toObject()));
+    let winesWithAverage = await Promise.all(averagePromises);
+    const srcPromisses = winesWithAverage.map((wine) => addImgSrc(wine));
+    winesWithAverage = await Promise.all(srcPromisses);
 
     return res.json({
       pages: Math.ceil(count / limit),
@@ -111,10 +123,7 @@ const updateWine = async (req, res) => {
 const getWineReviews = async (req, res) => {
   try {
     const { id } = req.params;
-    const {
-      limit = 15,
-      page = 1,
-    } = req.query;
+    const { limit = 15, page = 1 } = req.query;
 
     if (!ObjectId.isValid(id)) return res.status(400).send('ID inválido.');
 
