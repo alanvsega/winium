@@ -46,13 +46,13 @@ const getWines = async (req, res) => {
       sort = '-createdAt',
     } = req.query;
 
+    if (page < 1 || limit < 1) return res.status(400).send('Página inválida.');
+
     const query = buildQuery(req.query);
 
     if (search) {
       query.$or = buildSearch(search);
     }
-
-    if (page < 1) return res.status(400).send('Página inválida.');
 
     const winesPromise = Wine.find(query)
       .limit(Number(limit))

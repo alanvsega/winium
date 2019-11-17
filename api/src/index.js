@@ -19,6 +19,7 @@ app.use(require('./middlewares/auth'));
 
 app.use(require('./routes/User'));
 app.use(require('./routes/Wine'));
+app.use(require('./routes/Review'));
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
