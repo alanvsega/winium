@@ -62,16 +62,16 @@ export default function CreateAccount() {
                 className="birthday-date-picker"
                 name="birtyhday"
                 selected={startDate}
-                onChange={e => dateChange(e)}
+                onChange={(e) => dateChange(e)}
               />
             </div>
             <div className="input-group-container">
               <label htmlFor="country">Country</label>
               <Select
                 className="select-countries"
-                options={countries.map(c => ({
+                options={countries.map((c) => ({
                   value: c.name,
-                  label: c.name
+                  label: c.name,
                 }))}
               />
             </div>

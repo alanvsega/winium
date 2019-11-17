@@ -8,7 +8,7 @@ import WineItem from './Components/WineItem/index';
 import './style.css';
 
 export default function Catalog() {
-  const wines = useSelector(state => state.wineList);
+  const wines = useSelector((state) => state.wineList);
   const dispatch = useDispatch();
 
   React.useEffect(() => {
@@ -23,11 +23,12 @@ export default function Catalog() {
   return (
     <div className="catalog-container background-main-light">
       <div className="wines-list-container">
-        {wines.map(wine => (
+        {wines.map((wine) => (
+          // eslint-disable-next-line no-underscore-dangle
           <WineItem key={wine._id} wine={wine} />
         ))}
       </div>
-      <div className="filter-container background-main-gradient"></div>
+      <div className="filter-container background-main-gradient" />
     </div>
   );
 }
