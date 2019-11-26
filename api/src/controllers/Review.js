@@ -35,6 +35,38 @@ const getReviews = async (req, res) => {
   }
 };
 
+const getReviewsByWine = async (req, res) => {
+  try {
+    const {
+      params: { id },
+      query: {
+        limit = 15,
+        page = 1,
+        sort = '-createdAt',
+      },
+    } = req;
+
+    if (!ObjectId.isValid(id)) return res.status(400).send('ID inválido.');
+
+    const reviewsPromise = Review.find({ wine: id })
+      .limit(Number(limit))
+      .skip(Number(limit * page - limit))
+      .sort(sort);
+
+    const countPromise = Review.countDocuments({ wine: id });
+
+    const [reviews, count] = await Promise.all([reviewsPromise, countPromise]);
+
+    return res.json({
+      pages: Math.ceil(count / limit),
+      reviews,
+      total: count,
+    });
+  } catch (error) {
+    return res.status(500).send('Erro interno no servidor.');
+  }
+};
+
 const createReview = async (req, res) => {
   try {
     const {
@@ -93,5 +125,6 @@ module.exports = {
   createReview,
   deleteReview,
   getReviews,
+  getReviewsByWine,
   updateReview,
 };
