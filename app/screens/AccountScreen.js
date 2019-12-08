@@ -1,6 +1,5 @@
 import React from 'react';
 import {
-  ActivityIndicator,
   Alert,
   View,
   ScrollView,
@@ -15,6 +14,7 @@ import { connect } from 'react-redux';
 import MainStyle from '../styles/MainStyle';
 import FormStyle from '../styles/FormStyle';
 
+import Loader from '../components/Loader';
 import BottomTabNavigator from '../components/BottomTabNavigator';
 
 import * as UserReducer from '../reducers/UserReducer';
@@ -42,7 +42,7 @@ class AccountScreen extends React.Component {
 
   render() {
     if(!this.props.user) {
-      return(<ActivityIndicator size="large" color="#0000ff"/>);
+      return(<Loader/>);
     }
 
     return(

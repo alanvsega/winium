@@ -77,5 +77,11 @@ export default MainStyle = StyleSheet.create({
   largeText: {
     fontSize: 30,
   },
+  fullPage: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: COLORS.mediumBlue,
+  },
 });
 

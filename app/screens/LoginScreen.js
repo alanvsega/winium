@@ -1,6 +1,5 @@
 import React from 'react';
 import {
-  ActivityIndicator,
   Alert,
   View,
   ScrollView,
@@ -14,6 +13,7 @@ import { connect } from 'react-redux';
 
 import MainStyle from '../styles/MainStyle';
 
+import Loader from '../components/Loader';
 import BottomTabNavigator from '../components/BottomTabNavigator';
 
 import * as UserReducer from '../reducers/UserReducer';
@@ -61,7 +61,7 @@ class LoginScreen extends React.Component {
 
   render() {
     if(this.props.isLoading) {
-      return(<ActivityIndicator size="large" color="#0000ff"/>);
+      return(<Loader/>);
     }
 
     return(
