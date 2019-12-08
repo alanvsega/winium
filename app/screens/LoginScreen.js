@@ -1,10 +1,13 @@
 import React from 'react';
 import {
+  ActivityIndicator,
+  Alert,
   View,
   ScrollView,
   Text,
   TextInput,
   TouchableOpacity,
+  Image,
 } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
 import { connect } from 'react-redux';
@@ -12,6 +15,10 @@ import { connect } from 'react-redux';
 import MainStyle from '../styles/MainStyle';
 
 import BottomTabNavigator from '../components/BottomTabNavigator';
+
+import * as UserReducer from '../reducers/UserReducer';
+
+import { getLogin } from '../actions/UserActions';
 
 class LoginScreen extends React.Component {
   constructor(props) {
@@ -26,13 +33,43 @@ class LoginScreen extends React.Component {
   }
 
   onLoginClick = () => {
-    console.log('Login', this.state.data);
+    let validation = '';
+
+    if(!this.state.data.email) {
+      validation = validation + 'Email is required.\n';
+    }
+
+    if(!this.state.data.password) {
+      validation = validation + 'Password is required.\n';
+    }
+
+    if(validation != '') {
+      Alert.alert(
+        "Validation",
+        validation,
+        [
+          { text: 'OK', onPress: () => {} },
+        ],
+        { cancelable: false },
+      );
+
+      return;
+    }
+
+    this.props.getLogin(this.state.data);
   }
 
   render() {
+    if(this.props.isLoading) {
+      return(<ActivityIndicator size="large" color="#0000ff"/>);
+    }
+
     return(
       <View style={MainStyle.blueBody}>
         <ScrollView style={MainStyle.content}>
+          <View style={MainStyle.centerView}>
+            <Image style={MainStyle.logo} source={require('../assets/icon.png')}/>
+          </View>
           <Text style={[MainStyle.whiteText, MainStyle.largeText]}>Welcome</Text>
           <Text style={[MainStyle.whiteText, MainStyle.mediumText]}>Sign in or create an account</Text>
           <View style={FormStyle.formItem}>
@@ -71,9 +108,11 @@ class LoginScreen extends React.Component {
 }
 
 const mapStateToProps = state => ({
+  isLoading: UserReducer.isLoading(state),
 });
 
 const mapDispatchToProps = dispatch => ({
+  getLogin: (data) => dispatch(getLogin(data)),
 });
 
 export default connect(

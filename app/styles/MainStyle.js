@@ -6,15 +6,24 @@ export default MainStyle = StyleSheet.create({
   body: {
     flex: 1,
     backgroundColor: COLORS.lightGrey,
-    paddingTop: 30,
+    paddingTop: 35,
   },
   blueBody: {
     flex: 1,
     backgroundColor: COLORS.mediumBlue,
-    paddingTop: 30,
+    paddingTop: 35,
   },
   content: {
     paddingHorizontal: 15,
+  },
+  centerView: {
+    alignContent: 'center',
+    justifyContent: 'center',
+  },
+  logo: {
+    alignSelf: 'center',
+    width: 150,
+    height: 150,
   },
   row: {
     flexDirection: 'row',

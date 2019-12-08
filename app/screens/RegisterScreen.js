@@ -1,10 +1,13 @@
 import React from 'react';
 import {
+  ActivityIndicator,
+  Alert,
   View,
   ScrollView,
   Text,
   TextInput,
   TouchableOpacity,
+  Image,
 } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
 import { connect } from 'react-redux';
@@ -13,6 +16,10 @@ import MainStyle from '../styles/MainStyle';
 
 import BottomTabNavigator from '../components/BottomTabNavigator';
 import FormStyle from '../styles/FormStyle';
+
+import * as UserReducer from '../reducers/UserReducer';
+
+import { postRegister } from '../actions/UserActions';
 
 class RegisterScreen extends React.Component {
   constructor(props) {
@@ -23,7 +30,7 @@ class RegisterScreen extends React.Component {
         name: null,
         email: null,
         country: null,
-        provincy: null,
+        province: null,
         password: null,
         password2: null,
       }
@@ -31,13 +38,59 @@ class RegisterScreen extends React.Component {
   }
 
   onCreateAccountClick = () => {
-    console.log('Register', this.state.data);
+    let validation = '';
+
+    if(!this.state.data.name) {
+      validation = 'Name is required.\n';
+    }
+
+    if(!this.state.data.email) {
+      validation = validation + 'Email is required.\n';
+    }
+
+    if(!this.state.data.country) {
+      validation = validation + 'Country is required.\n';
+    }
+
+    if(!this.state.data.province) {
+      validation = validation + 'Province is required.\n';
+    }
+
+    if(!this.state.data.password) {
+      validation = validation + 'Password is required.\n';
+    }
+
+    if(this.state.data.password && this.state.data.password != this.state.data.password2) {
+      validation = validation + 'Confirm your password.\n';
+    }
+
+    if(validation != '') {
+      Alert.alert(
+        "Validation",
+        validation,
+        [
+          { text: 'OK', onPress: () => {} },
+        ],
+        { cancelable: false },
+      );
+
+      return;
+    }
+
+    this.props.postRegister(this.state.data);
   }
 
   render() {
+    if(this.props.isLoading) {
+      return(<ActivityIndicator size="large" color="#0000ff"/>);
+    }
+
     return(
       <View style={MainStyle.blueBody}>
         <ScrollView style={MainStyle.content}>
+          <View style={MainStyle.centerView}>
+            <Image style={MainStyle.logo} source={require('../assets/icon.png')}/>
+          </View>
           <Text style={[MainStyle.whiteText, MainStyle.largeText]}>Welcome</Text>
           <Text style={[MainStyle.whiteText, MainStyle.mediumText]}>Fill with you informations</Text>
           <View style={FormStyle.formItem}>
@@ -117,9 +170,11 @@ class RegisterScreen extends React.Component {
 }
 
 const mapStateToProps = state => ({
+  isLoading: UserReducer.isLoading(state),
 });
 
 const mapDispatchToProps = dispatch => ({
+  postRegister: (data) => dispatch(postRegister(data)),
 });
 
 export default connect(

@@ -11,6 +11,7 @@ import { createStore, applyMiddleware } from 'redux';
 
 import winium from './reducers';
 
+import AccountScreen from './screens/AccountScreen';
 import HomeScreen from './screens/HomeScreen';
 import LoginScreen from './screens/LoginScreen';
 import RegisterScreen from './screens/RegisterScreen';
@@ -19,6 +20,7 @@ import WineDetailsScreen from './screens/WineDetailsScreen';
 
 const RootStack = createStackNavigator(
   {
+    Account: AccountScreen,
     Home: HomeScreen,
     Login: LoginScreen,
     Register: RegisterScreen,
@@ -26,7 +28,7 @@ const RootStack = createStackNavigator(
     WineDetails: WineDetailsScreen,
   },
   {
-    initialRouteName: 'WineList', // @TODO: Set initial as Home
+    initialRouteName: 'Home', // @TODO: Set initial as Home
     headerMode: 'none',
   }
 );

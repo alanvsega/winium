@@ -4,11 +4,14 @@ import {
   LOGIN_REQUEST,
   LOGIN_SUCCESS,
   LOGOUT_SUCCESS,
+  LOGIN_ERROR,
 } from '../constants/Actions';
 
 const initialState = Immutable({
   loading: false,
   logged: false,
+  data: null,
+  message: null,
 });
 
 export default user = (state = initialState, action) => {
@@ -22,16 +25,25 @@ export default user = (state = initialState, action) => {
       return state.merge({
         loading: false,
         logged: true,
+        data: action.payload,
       })
     }
     case LOGOUT_SUCCESS: {
       return state.merge({
         loading: false,
         logged: false,
+        data: null,
+      })
+    }
+    case LOGIN_ERROR: {
+      return state.merge({
+        message: action.payload,
       })
     }
     default: {
-      return state;
+      return state.merge({
+        message: null,
+      })
     }
   }
 }
@@ -42,4 +54,12 @@ export const isLoading = (state) => {
 
 export const isLogged = (state) => {
   return state.user.logged;
+}
+
+export const getMessage = (state) => {
+  return state.user.message;
+}
+
+export const getUser = (state) => {
+  return state.user.data;
 }

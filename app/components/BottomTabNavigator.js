@@ -5,10 +5,13 @@ import {
   TouchableWithoutFeedback,
 } from 'react-native';
 import { FontAwesome, SimpleLineIcons, Feather } from '@expo/vector-icons';
+import { connect } from 'react-redux';
 
 import COLORS from '../constants/Colors';
 
-export default class BottomTabNavigator extends React.Component {
+import * as UserReducer from '../reducers/UserReducer';
+
+class BottomTabNavigator extends React.Component {
   constructor(props) {
     super(props);
 
@@ -40,7 +43,7 @@ export default class BottomTabNavigator extends React.Component {
             />
           </View>
         </TouchableWithoutFeedback>
-        <TouchableWithoutFeedback onPress={() => this.navigate('Register')}>
+        <TouchableWithoutFeedback onPress={() => this.navigate(this.props.isLogged ? 'Account' : 'Login')}>
           <View style= {Style.tabItem}>
             <Feather
               name='users'
@@ -78,3 +81,15 @@ const Style = StyleSheet.create({
     color: COLORS.darkGrey,
   }
 });
+
+const mapStateToProps = state => ({
+  isLogged: UserReducer.isLogged(state),
+});
+
+const mapDispatchToProps = dispatch => ({
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(BottomTabNavigator);
