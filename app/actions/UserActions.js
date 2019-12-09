@@ -57,7 +57,7 @@ export const getLogin = (data) => async (dispatch) => {
   }
   catch(e) {
     console.log('Error UserActions/getLogin', e);
-    dispatch(fail(e && e.data ? e.data : 'Something went wrong.'));
+    dispatch(fail(e && e.response && e.response.data ? e.response.data : 'Something went wrong.'));
     dispatch(request(false));
   }
 }
@@ -75,7 +75,7 @@ export const postRegister = (data) => async (dispatch) => {
   }
   catch(e) {
     console.log('Error UserActions/postRegister', e);
-    dispatch(fail(e && e.data ? e.data : 'Something went wrong.'));
+    dispatch(fail(e && e.response && e.response.data ? e.response.data : 'Something went wrong.'));
     dispatch(request(false));
   }
 }
@@ -91,7 +91,7 @@ export const applyLogout = () => async (dispatch) => {
   }
   catch(e) {
     console.log('Error UserActions/applyLogout', e);
-    dispatch(fail(e && e.data ? e.data : 'Something went wrong.'));
+    dispatch(fail(e && e.response && e.response.data ? e.response.data : 'Something went wrong.'));
     dispatch(request(false));
   }
 }

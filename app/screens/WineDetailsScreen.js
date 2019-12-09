@@ -50,16 +50,8 @@ class WineDetailsScreen extends React.Component {
 
   componentDidUpdate(prevProps) {
     if(this.props != prevProps) {
-      if((this.props.message != prevProps.message) && this.props.message != null) {
-        Alert.alert(
-          this.props.hasError ? "Error" : "Success",
-          this.props.message,
-          [
-            { text: 'OK', onPress: () => {} },
-          ],
-          { cancelable: false },
-        );
-
+      // Review Added
+      if((this.props.message != prevProps.message) && this.props.message != null && this.props.action === 3) {
         this.props.getWineReviews(this.state.wine._id);
       }
     }
@@ -70,22 +62,20 @@ class WineDetailsScreen extends React.Component {
 
     if(wine) {
       this.props.getWineReviews(wine._id);
-
-      if(this.props.isLogged) {
-        this.setState({
-          wine,
-          review: {
-            ...this.state.review,
-            user: this.props.user._id,
-            wine: wine._id,
-          }
-        });
-      }
+      this.setState({ wine });
     }
   }
 
   toggleReviewWineModal = () => {
-    this.setState({ showReviewModal: !this.state.showReviewModal });
+    this.setState({
+      showReviewModal: !this.state.showReviewModal,
+      review: {
+        description: null,
+        points: 0,
+        user: this.props.user._id,
+        wine: this.state.wine._id,
+      }
+    });
   }
 
   onSubmitReviewClick = () => {
@@ -102,18 +92,19 @@ class WineDetailsScreen extends React.Component {
       return;
     }
 
-    this.toggleReviewWineModal();
-
-    this.props.postReview(this.state.review);
-
-    // Reset
-    this.setState({
-      review: {
-        ...this.state.review,
-        description: null,
-        points: 0,
-      }
-    });
+    Alert.alert(
+      "Adding Review",
+      "Are you sure?",
+      [
+        { text: 'No', onPress: () => {} },
+        { text: 'Yes', onPress: () => {
+          this.props.postReview(this.state.review);
+          // Reset
+          this.toggleReviewWineModal();
+        }},
+      ],
+      { cancelable: false },
+    );
   }
 
   render() {
@@ -274,7 +265,7 @@ const mapStateToProps = state => ({
   isLoading: WineReducer.isLoading(state),
   reviews: WineReducer.getSelectedReviews(state),
   message: WineReducer.getMessage(state),
-  hasError: WineReducer.hasError(state),
+  action: WineReducer.getAction(state),
 });
 
 const mapDispatchToProps = dispatch => ({

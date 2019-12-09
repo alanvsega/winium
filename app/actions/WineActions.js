@@ -12,14 +12,15 @@ import Requester from '../utils/Requester';
 export const request = (payload) => {
   return {
     type: WINE_REQUEST,
-    payload
+    payload,
   }
 }
 
-export const receive = (type, payload) => {
+export const receive = (type, payload, messageType = 0) => {
   return {
     type,
-    payload
+    payload,
+    messageType,
   }
 }
 
@@ -40,7 +41,7 @@ export const getWines = (search) => async (dispatch) => {
   }
   catch(e) {
     console.log('Error WineActions/getWines', e);
-    dispatch(fail(e && e.data ? e.data : 'Something went wrong.'));
+    dispatch(fail(e && e.response && e.response.data ? e.response.data : 'Something went wrong.'));
     dispatch(request(false));
   }
 }
@@ -55,7 +56,22 @@ export const getWineReviews = (wineId) => async (dispatch) => {
   }
   catch(e) {
     console.log('Error WineActions/getWineReviews', e);
-    dispatch(fail(e && e.data ? e.data : 'Something went wrong.'));
+    dispatch(fail(e && e.response && e.response.data ? e.response.data : 'Something went wrong.'));
+    dispatch(request(false));
+  }
+}
+
+export const postWine = (data) => async (dispatch) => {
+  try {
+    dispatch(request(true));
+
+    await Requester.postAuthenticated('wine', data);
+
+    dispatch(receive(WINE_MESSAGE, 'The wine was added. Thank you.', 2));
+  }
+  catch(e) {
+    console.log('Error WineActions/postWine', e);
+    dispatch(fail(e && e.response && e.response.data ? e.response.data : 'Something went wrong.'));
     dispatch(request(false));
   }
 }
@@ -66,11 +82,11 @@ export const postReview = (data) => async (dispatch) => {
 
     await Requester.postAuthenticated('review', data);
 
-    dispatch(receive(WINE_MESSAGE, 'Your review was submited. Thank you.'));
+    dispatch(receive(WINE_MESSAGE, 'Your review was submited. Thank you.', 3));
   }
   catch(e) {
     console.log('Error WineActions/postReview', e);
-    dispatch(fail(e && e.data ? e.data : 'Something went wrong.'));
+    dispatch(fail(e && e.response && e.response.data ? e.response.data : 'Something went wrong.'));
     dispatch(request(false));
   }
 }

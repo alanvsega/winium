@@ -24,7 +24,7 @@ export default FormStyle = StyleSheet.create({
     backgroundColor: 'transparent',
   },
   formIcon: {
-    marginTop: 15,
+    marginTop: 17,
     width: 32,
   },
   yellowButton: {
@@ -50,5 +50,26 @@ export default FormStyle = StyleSheet.create({
     marginTop: 10,
     marginBottom: 10,
     borderRadius: 5,
-  }
+  },
+  floatingAction: {
+    borderWidth: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: 50,
+    height: 50,
+    position: 'absolute',
+    bottom: 80,
+    right: 15,
+    backgroundColor: COLORS.yellow,
+    borderColor: COLORS.yellow,
+    borderRadius: 100,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 2,
+      height: 2,
+    },
+    shadowOpacity: 0.22,
+    shadowRadius: 2.22,
+  },
 });

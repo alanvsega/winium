@@ -32,11 +32,11 @@ export default class Requester {
   }
 
   static get = async (uri) => {
-    return Requester.make('get', uri);
+    return await Requester.make('get', uri);
   }
 
   static post = async (uri, data) => {
-    return Requester.make('post', uri, data);
+    return await Requester.make('post', uri, data);
   }
 
   static headerWithAuthorization = async (header = {}) => {
@@ -51,16 +51,16 @@ export default class Requester {
 
   static getAuthenticated = async (uri, header) => {
     header = await Requester.headerWithAuthorization(header);
-    return Requester.make('get', uri, {}, header);
+    return await Requester.make('get', uri, {}, header);
   }
 
   static postAuthenticated = async (uri, data, header) => {
     header = await Requester.headerWithAuthorization(header);
-    return Requester.make('post', uri, data, header);
+    return await Requester.make('post', uri, data, header);
   }
 
   static patchAuthenticated = async (uri, data, header) => {
     header = await Requester.headerWithAuthorization(header);
-    return Requester.make('patch', uri, data, header);
+    return await Requester.make('patch', uri, data, header);
   }
 }

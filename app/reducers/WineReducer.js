@@ -12,7 +12,7 @@ import {
 const initialState = Immutable({
   loading: false,
   message: null,
-  error: false,
+  action: 0, // 0 = NONE ; 1 = ERROR ; 2 = WINE CREATED ; 3 = REVIEW CREATED
   selected: null,
   selectedReviews: null,
   list: null,
@@ -47,18 +47,19 @@ export default wine = (state = initialState, action) => {
       return state.merge({
         loading: false,
         message: action.payload,
+        action: action.messageType,
       })
     }
     case WINE_ERROR: {
       return state.merge({
-        error: true,
+        action: 1,
         message: action.payload,
       })
     }
     default: {
       return state.merge({
         message: null,
-        error: false,
+        action: 0,
       })
     }
   }
@@ -72,8 +73,8 @@ export const getMessage = (state) => {
   return state.wine.message;
 }
 
-export const hasError = (state) => {
-  return state.wine.error;
+export const getAction = (state) => {
+  return state.wine.action;
 }
 
 export const getSelected = (state) => {
