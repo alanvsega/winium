@@ -126,20 +126,35 @@ const getVarieties = async (req, res) => {
 
 const getTopWines = async (req, res) => {
   try {
-    const query = buildQuery(req.query);
+    const { limit = 4, min = 20 } = req.query;
 
-    const winesPromise = Wine.find(query).limit(4);
+    const topWines = await Review.aggregate([
+      {
+        $group: {
+          _id: '$wine',
+          average: { $avg: '$points' },
+          count: { $sum: 1 },
+        },
+      },
+      { $match: { count: { $gte: Number(min) } } },
+      { $sort: { average: -1 } },
+      { $limit: Number(limit) },
+    ]);
 
-    const [wines] = await Promise.all([winesPromise]);
+    const averages = topWines.reduce((acc, item) => ({
+      ...acc,
+      [item._id]: item.average,
+    }), {});
 
-    const averagePromises = wines.map(wine => addAverage(wine.toObject()));
-    const winesWithAverage = await Promise.all(averagePromises);
+    const wines = await Wine.find({ _id: { $in: Object.keys(averages) } });
 
-    return res.json({
-      wines: winesWithAverage,
-    });
+    const winesWithAverage = wines.map(wine => ({
+      ...wine.toObject(),
+      average: averages[wine._id].toFixed(2),
+    }));
+
+    return res.json({ wines: winesWithAverage });
   } catch (error) {
-    console.log(error);
     return res.status(500).send('Erro interno no servidor.');
   }
 };
