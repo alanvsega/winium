@@ -6,12 +6,8 @@ const isPublicRoute = ({ method, originalUrl }) => {
     POST: ['/login', '/user'],
   };
 
-  for(let i = 0; i < publicRoutes[method].length; i++) {
-    if(originalUrl.startsWith(publicRoutes[method][i])) return true;
-  }
-
-  return false;
-}
+  return publicRoutes[method].includes(originalUrl);
+};
 
 module.exports = (req, res, next) => {
   if (isPublicRoute(req)) return next();
