@@ -38,6 +38,19 @@ export default FormStyle = StyleSheet.create({
     marginBottom: 10,
     borderRadius: 5,
   },
+  yellowButtonDashboard: {
+    backgroundColor: COLORS.yellow,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: '70%',
+    padding: 5,
+    marginHorizontal: '15%',
+    marginTop: 10,
+    marginBottom: 10,
+    borderRadius: 5,
+    textAlign: 'center'
+  },
   yellowBorderedButton: {
     backgroundColor: 'transparent',
     borderWidth: 2,

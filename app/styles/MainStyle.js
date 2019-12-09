@@ -27,6 +27,11 @@ export default MainStyle = StyleSheet.create({
     width: 150,
     height: 150,
   },
+  logoDashboard: {
+    alignSelf: 'center',
+    width: 172,
+    height: 150,
+  },
   row: {
     flexDirection: 'row',
     maxWidth: '100%',
@@ -36,6 +41,13 @@ export default MainStyle = StyleSheet.create({
     fontSize: 21,
     color: COLORS.darkGrey,
     textAlign: 'center',
+  },
+  rankingDashboardTitle: {
+    color: '#4DAAAB',
+    fontSize: 24,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    paddingVertical: 30
   },
   gridItem: {
     width: '50%',
@@ -101,6 +113,11 @@ export default MainStyle = StyleSheet.create({
   largeText: {
     fontSize: 30,
   },
+  dashboardText: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    paddingVertical: 10
+  },
   fullPage: {
     flex: 1,
     justifyContent: 'center',
@@ -150,6 +167,15 @@ export default MainStyle = StyleSheet.create({
     padding: 5,
     marginTop: 10,
     backgroundColor: '#FFF',
+  },
+  rankingDashboard: {
+    width: '100%',
+    maxWidth: '100%',
+    padding: 5,
+    marginTop: 10,
+    backgroundColor: '#E6E6E6',
+    borderTopStartRadius: 15,
+    borderTopEndRadius: 15
   },
   itemLine: {
     alignSelf: 'center',
