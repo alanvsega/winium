@@ -1,11 +1,14 @@
 import React from 'react';
 import {
+  Alert,
   ScrollView,
   View,
   Image,
   Text,
   TouchableOpacity,
   StyleSheet,
+  TextInput,
+  KeyboardAvoidingView,
 } from 'react-native';
 import {
   FontAwesome,
@@ -13,11 +16,13 @@ import {
   Foundation,
   MaterialCommunityIcons,
 } from '@expo/vector-icons';
+import Modal from 'react-native-modal';
+import StarRating from 'react-native-star-rating';
 import { connect } from 'react-redux';
 
+import COLORS from '../constants/Colors';
 import MainStyle from '../styles/MainStyle';
 import FormStyle from '../styles/FormStyle';
-import COLORS from '../constants/Colors';
 
 import Loader from '../components/Loader';
 import BottomTabNavigator from '../components/BottomTabNavigator';
@@ -25,7 +30,7 @@ import BottomTabNavigator from '../components/BottomTabNavigator';
 import * as UserReducer from '../reducers/UserReducer';
 import * as WineReducer from '../reducers/WineReducer';
 
-import { getWineReviews } from '../actions/WineActions';
+import { getWineReviews, postReview } from '../actions/WineActions';
 
 class WineDetailsScreen extends React.Component {
   constructor(props) {
@@ -33,7 +38,31 @@ class WineDetailsScreen extends React.Component {
 
     this.state = {
       wine: null,
+      showReviewModal: false,
+      review: {
+        description: null,
+        points: 0,
+        user: null,
+        wine: null,
+      }
     };
+  }
+
+  componentDidUpdate(prevProps) {
+    if(this.props != prevProps) {
+      if((this.props.message != prevProps.message) && this.props.message != null) {
+        Alert.alert(
+          this.props.hasError ? "Error" : "Success",
+          this.props.message,
+          [
+            { text: 'OK', onPress: () => {} },
+          ],
+          { cancelable: false },
+        );
+
+        this.props.getWineReviews(this.state.wine._id);
+      }
+    }
   }
 
   componentDidMount() {
@@ -41,8 +70,50 @@ class WineDetailsScreen extends React.Component {
 
     if(wine) {
       this.props.getWineReviews(wine._id);
-      this.setState({ wine });
+
+      if(this.props.isLogged) {
+        this.setState({
+          wine,
+          review: {
+            ...this.state.review,
+            user: this.props.user._id,
+            wine: wine._id,
+          }
+        });
+      }
     }
+  }
+
+  toggleReviewWineModal = () => {
+    this.setState({ showReviewModal: !this.state.showReviewModal });
+  }
+
+  onSubmitReviewClick = () => {
+    if(!this.state.review.description) {
+      Alert.alert(
+        "Validation",
+        "Description is required.",
+        [
+          { text: 'OK', onPress: () => {} },
+        ],
+        { cancelable: false },
+      );
+
+      return;
+    }
+
+    this.toggleReviewWineModal();
+
+    this.props.postReview(this.state.review);
+
+    // Reset
+    this.setState({
+      review: {
+        ...this.state.review,
+        description: null,
+        points: 0,
+      }
+    });
   }
 
   render() {
@@ -52,6 +123,47 @@ class WineDetailsScreen extends React.Component {
 
     return(
       <View style={MainStyle.blueBody}>
+        <Modal
+          isVisible={this.state.showReviewModal}
+          style={MainStyle.modal}
+          onBackButtonPress={this.toggleReviewWineModal}
+        >
+          <KeyboardAvoidingView behavior="position" enabled>
+            <View style={MainStyle.modalLine}>
+              <StarRating
+                disabled={false}
+                maxStars={10}
+                rating={this.state.review.points}
+                emptyStarColor={COLORS.yellow}
+                fullStarColor={COLORS.yellow}
+                halfStarColor={COLORS.yellow}
+                selectedStar={(points) => {this.setState({review: { ...this.state.review, points}})}}
+              />
+            </View>
+            <View style={MainStyle.modalLine}>
+              <FontAwesome name="comment" style={FormStyle.formIcon} size={20} color="#FFF"/>
+              <TextInput
+                style={FormStyle.whiteInput}
+                placeholder='Describe this product'
+                placeholderTextColor='#FFF'
+                underlineColorAndroid="transparent"
+                multiline={true}
+                numberOfLines={6}
+                onChangeText={(description) => {this.setState({review: { ...this.state.review, description}})}}
+              />
+            </View>
+            <View style={MainStyle.modalLine}>
+              <TouchableOpacity style={FormStyle.yellowButton} onPress={this.onSubmitReviewClick}>
+                <Text style={[MainStyle.blueText, MainStyle.largeText]}>Submit Review</Text>
+              </TouchableOpacity>
+            </View>
+            <View style={MainStyle.modalLine}>
+              <TouchableOpacity style={FormStyle.yellowBorderedButton} onPress={this.toggleReviewWineModal}>
+                <Text style={[MainStyle.yellowText, MainStyle.largeText]}>Cancel</Text>
+              </TouchableOpacity>
+            </View>
+          </KeyboardAvoidingView>
+        </Modal>
         <ScrollView>
           <View style={MainStyle.detailsItem}>
             <View style={MainStyle.detailsScore}>
@@ -60,7 +172,7 @@ class WineDetailsScreen extends React.Component {
             <Image style={MainStyle.detailsImage} source={require('../assets/wine.png')}/>
             <Text style={MainStyle.detailsText}>{this.state.wine.designation}</Text>
             <Text style={MainStyle.detailsText2}>{this.state.wine.variety}</Text>
-            <View style={Style.itemLine}>
+            <View style={MainStyle.itemLine}>
               <MaterialCommunityIcons
                 name='home-outline'
                 size={16}
@@ -69,7 +181,7 @@ class WineDetailsScreen extends React.Component {
               <Text style={MainStyle.detailsText3}>{this.state.wine.winery}</Text>
             </View>
             {this.state.wine.country != null &&
-              <View style={Style.itemLine}>
+              <View style={MainStyle.itemLine}>
                 <FontAwesome
                   name='flag'
                   size={16}
@@ -79,7 +191,7 @@ class WineDetailsScreen extends React.Component {
               </View>
             }
             {this.state.wine.province != null &&
-              <View style={Style.itemLine}>
+              <View style={MainStyle.itemLine}>
                 <Foundation
                   name='map'
                   size={16}
@@ -89,7 +201,7 @@ class WineDetailsScreen extends React.Component {
               </View>
             }
             {this.state.wine.region_1 != null &&
-              <View style={Style.itemLine}>
+              <View style={MainStyle.itemLine}>
                 <MaterialIcons
                   name='place'
                   size={16}
@@ -99,7 +211,7 @@ class WineDetailsScreen extends React.Component {
               </View>
             }
             {this.state.wine.region_2 != null &&
-              <View style={Style.itemLine}>
+              <View style={MainStyle.itemLine}>
                 <MaterialIcons
                   name='place'
                   size={16}
@@ -109,7 +221,7 @@ class WineDetailsScreen extends React.Component {
               </View>
             }
             {this.state.wine.region_3 != null &&
-              <View style={Style.itemLine}>
+              <View style={MainStyle.itemLine}>
                 <MaterialIcons
                   name='place'
                   size={16}
@@ -123,19 +235,19 @@ class WineDetailsScreen extends React.Component {
           <View style={MainStyle.reviews}>
             <Text style={MainStyle.darkTitle}>Reviews & Ratings</Text>
             {this.props.isLogged &&
-              <TouchableOpacity style={FormStyle.yellowButton}>
+              <TouchableOpacity style={FormStyle.yellowButton} onPress={this.toggleReviewWineModal}>
                 <Text style={[MainStyle.blueText, MainStyle.largeText]}>Review this wine</Text>
               </TouchableOpacity>
             }
             {this.props.reviews != null && this.props.reviews.map((review, i) =>
-              <View key={i} style={Style.reviewItem}>
-                <View style={Style.reviewHeader}>
-                  <View style={Style.reviewScore}>
-                    <Text style={Style.reviewScoreText}>{review.points}</Text>
+              <View key={i} style={MainStyle.reviewItem}>
+                <View style={MainStyle.reviewHeader}>
+                  <View style={MainStyle.reviewScore}>
+                    <Text style={MainStyle.reviewScoreText}>{review.points}</Text>
                   </View>
                   <Text style={MainStyle.gridText}>{review.user.name}</Text>
                 </View>
-                <View style={Style.reviewContent}>
+                <View style={MainStyle.reviewContent}>
                   <Text style={MainStyle.leftText}>{review.description}</Text>
                 </View>
               </View>
@@ -154,55 +266,20 @@ const Style = StyleSheet.create({
     marginRight: 7,
     color: '#FFF',
   },
-  itemLine: {
-    alignSelf: 'center',
-    flexDirection: 'row',
-    alignContent: 'center',
-  },
-  reviewItem: {
-    width: '100%',
-    borderBottomColor: COLORS.lightGrey,
-    borderBottomWidth: 3,
-    padding: 10,
-    marginTop: 10,
-  },
-  reviewHeader:{
-    width: '100%',
-    alignSelf: 'center',
-    flexDirection: 'row',
-    alignContent: 'center',
-    justifyContent: 'center',
-    paddingVertical: 6,
-  },
-  reviewContent:{
-    width: '100%',
-    alignSelf: 'center',
-    flexDirection: 'row',
-    paddingVertical: 6,
-  },
-  reviewScore: {
-    backgroundColor: COLORS.mediumBlue,
-    position: 'absolute',
-    left: 0,
-    top: 0,
-    paddingHorizontal: 12,
-    paddingVertical: 6,
-  },
-  reviewScoreText: {
-    fontSize: 15,
-    color: '#FFF',
-    textAlign: 'center',
-  },
 });
 
 const mapStateToProps = state => ({
   isLogged: UserReducer.isLogged(state),
+  user: UserReducer.getUser(state),
   isLoading: WineReducer.isLoading(state),
   reviews: WineReducer.getSelectedReviews(state),
+  message: WineReducer.getMessage(state),
+  hasError: WineReducer.hasError(state),
 });
 
 const mapDispatchToProps = dispatch => ({
   getWineReviews: (wineId) => dispatch(getWineReviews(wineId)),
+  postReview: (data) => dispatch(postReview(data)),
 });
 
 export default connect(

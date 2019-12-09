@@ -5,12 +5,14 @@ import {
   WINE_SUCCESS,
   WINE_LIST_SUCCESS,
   WINE_REVIEWS_SUCCESS,
+  WINE_MESSAGE,
   WINE_ERROR,
 } from '../constants/Actions';
 
 const initialState = Immutable({
   loading: false,
   message: null,
+  error: false,
   selected: null,
   selectedReviews: null,
   list: null,
@@ -41,14 +43,22 @@ export default wine = (state = initialState, action) => {
         selectedReviews: action.payload,
       })
     }
+    case WINE_MESSAGE: {
+      return state.merge({
+        loading: false,
+        message: action.payload,
+      })
+    }
     case WINE_ERROR: {
       return state.merge({
+        error: true,
         message: action.payload,
       })
     }
     default: {
       return state.merge({
         message: null,
+        error: false,
       })
     }
   }
@@ -56,6 +66,14 @@ export default wine = (state = initialState, action) => {
 
 export const isLoading = (state) => {
   return state.wine.loading;
+}
+
+export const getMessage = (state) => {
+  return state.wine.message;
+}
+
+export const hasError = (state) => {
+  return state.wine.error;
 }
 
 export const getSelected = (state) => {

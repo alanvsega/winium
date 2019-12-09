@@ -151,5 +151,55 @@ export default MainStyle = StyleSheet.create({
     marginTop: 10,
     backgroundColor: '#FFF',
   },
+  itemLine: {
+    alignSelf: 'center',
+    flexDirection: 'row',
+    alignContent: 'center',
+  },
+  reviewItem: {
+    width: '100%',
+    borderBottomColor: COLORS.lightGrey,
+    borderBottomWidth: 3,
+    padding: 10,
+    marginTop: 10,
+  },
+  reviewHeader:{
+    width: '100%',
+    alignSelf: 'center',
+    flexDirection: 'row',
+    alignContent: 'center',
+    justifyContent: 'center',
+    paddingVertical: 6,
+  },
+  reviewContent:{
+    width: '100%',
+    alignSelf: 'center',
+    flexDirection: 'row',
+    paddingVertical: 6,
+  },
+  reviewScore: {
+    backgroundColor: COLORS.mediumBlue,
+    position: 'absolute',
+    left: 0,
+    top: 0,
+    paddingHorizontal: 12,
+    paddingVertical: 6,
+  },
+  reviewScoreText: {
+    fontSize: 15,
+    color: '#FFF',
+    textAlign: 'center',
+  },
+  modal: {
+    backgroundColor: COLORS.mediumBlue,
+    marginTop: 0,
+    marginRight: 0,
+    marginBottom: 0,
+    marginLeft: 0,
+    padding: 10,
+  },
+  modalLine: {
+    flexDirection: 'row',
+  },
 });
 

@@ -68,7 +68,7 @@ class LoginScreen extends React.Component {
     return(
       <View style={MainStyle.blueBody}>
         <ScrollView style={MainStyle.content}>
-          <KeyboardAvoidingView>
+          <KeyboardAvoidingView behavior="position" enabled>
             <View style={MainStyle.centerView}>
               <Image style={MainStyle.logo} source={require('../assets/icon.png')}/>
             </View>

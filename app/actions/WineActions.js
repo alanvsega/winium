@@ -3,6 +3,7 @@ import {
   WINE_SUCCESS,
   WINE_LIST_SUCCESS,
   WINE_REVIEWS_SUCCESS,
+  WINE_MESSAGE,
   WINE_ERROR,
 } from '../constants/Actions';
 
@@ -54,6 +55,21 @@ export const getWineReviews = (wineId) => async (dispatch) => {
   }
   catch(e) {
     console.log('Error WineActions/getWineReviews', e);
+    dispatch(fail(e && e.data ? e.data : 'Something went wrong.'));
+    dispatch(request(false));
+  }
+}
+
+export const postReview = (data) => async (dispatch) => {
+  try {
+    dispatch(request(true));
+
+    await Requester.postAuthenticated('review', data);
+
+    dispatch(receive(WINE_MESSAGE, 'Your review was submited. Thank you.'));
+  }
+  catch(e) {
+    console.log('Error WineActions/postReview', e);
     dispatch(fail(e && e.data ? e.data : 'Something went wrong.'));
     dispatch(request(false));
   }

@@ -40,7 +40,7 @@ export default class Requester {
   }
 
   static headerWithAuthorization = async (header = {}) => {
-    let token = await Storage.get('user:token');
+    let token = await Storage.get('token');
 
     if (token) {
       header.Authorization = 'Bearer ' + token;
