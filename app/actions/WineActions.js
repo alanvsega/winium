@@ -3,6 +3,7 @@ import {
   WINE_SUCCESS,
   WINE_LIST_SUCCESS,
   WINE_REVIEWS_SUCCESS,
+  WINE_DASHBOARD_LIST_SUCCESS,
   WINE_MESSAGE,
   WINE_ERROR,
 } from '../constants/Actions';
@@ -86,6 +87,21 @@ export const postReview = (data) => async (dispatch) => {
   }
   catch(e) {
     console.log('Error WineActions/postReview', e);
+    dispatch(fail(e && e.response && e.response.data ? e.response.data : 'Something went wrong.'));
+    dispatch(request(false));
+  }
+}
+
+export const getDashboardWines = (country) => async (dispatch) => {
+  try {
+    dispatch(request(true));
+
+    let response = await Requester.get('wines/top' + (country ? '?country=' + country : ''));
+
+    dispatch(receive(WINE_DASHBOARD_LIST_SUCCESS, response.data.wines));
+  }
+  catch(e) {
+    console.log('Error WineActions/getWines', e);
     dispatch(fail(e && e.response && e.response.data ? e.response.data : 'Something went wrong.'));
     dispatch(request(false));
   }

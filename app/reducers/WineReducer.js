@@ -5,6 +5,7 @@ import {
   WINE_SUCCESS,
   WINE_LIST_SUCCESS,
   WINE_REVIEWS_SUCCESS,
+  WINE_DASHBOARD_LIST_SUCCESS,
   WINE_MESSAGE,
   WINE_ERROR,
 } from '../constants/Actions';
@@ -16,6 +17,7 @@ const initialState = Immutable({
   selected: null,
   selectedReviews: null,
   list: null,
+  dashboardList: null,
 });
 
 export default wine = (state = initialState, action) => {
@@ -41,6 +43,12 @@ export default wine = (state = initialState, action) => {
       return state.merge({
         loading: false,
         selectedReviews: action.payload,
+      })
+    }
+    case WINE_DASHBOARD_LIST_SUCCESS: {
+      return state.merge({
+        loading: false,
+        dashboardList: action.payload,
       })
     }
     case WINE_MESSAGE: {
@@ -87,4 +95,8 @@ export const getList = (state) => {
 
 export const getSelectedReviews = (state) => {
   return state.wine.selectedReviews;
+}
+
+export const getDashboardList = (state) => {
+  return state.wine.dashboardList;
 }

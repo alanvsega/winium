@@ -2,7 +2,7 @@ const { verify } = require('jsonwebtoken');
 
 const isPublicRoute = ({ method, originalUrl }) => {
   const publicRoutes = {
-    GET: ['/varieties', '/wines', '/reviews/wine'],
+    GET: ['/varieties', '/wines', '/wines/top', '/reviews/wine'],
     POST: ['/login', '/user'],
   };
 

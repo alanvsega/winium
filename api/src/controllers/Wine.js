@@ -124,10 +124,31 @@ const getVarieties = async (req, res) => {
   }
 };
 
+const getTopWines = async (req, res) => {
+  try {
+    const query = buildQuery(req.query);
+
+    const winesPromise = Wine.find(query).limit(4);
+
+    const [wines] = await Promise.all([winesPromise]);
+
+    const averagePromises = wines.map(wine => addAverage(wine.toObject()));
+    const winesWithAverage = await Promise.all(averagePromises);
+
+    return res.json({
+      wines: winesWithAverage,
+    });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).send('Erro interno no servidor.');
+  }
+};
+
 module.exports = {
   createWine,
   getVarieties,
   getWine,
   getWines,
+  getTopWines,
   updateWine,
 };
