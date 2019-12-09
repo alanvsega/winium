@@ -8,7 +8,7 @@ import {
   TouchableOpacity,
   Image,
 } from 'react-native';
-import { FontAwesome } from '@expo/vector-icons';
+import { FontAwesome, Foundation } from '@expo/vector-icons';
 import { connect } from 'react-redux';
 
 import MainStyle from '../styles/MainStyle';
@@ -75,7 +75,7 @@ class AccountScreen extends React.Component {
             />
           </View>
           <View style={FormStyle.formItem}>
-            <FontAwesome name="map-marker" style={FormStyle.formIcon} size={20} color="#FFF"/>
+            <Foundation name='map' style={FormStyle.formIcon} size={20} color="#FFF"/>
             <TextInput
               style={FormStyle.whiteInput}
               placeholder='Province'

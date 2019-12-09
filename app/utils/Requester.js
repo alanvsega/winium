@@ -19,8 +19,11 @@ export default class Requester {
       method,
       url,
       headers,
-      data,
     };
+
+    if (method !== 'get') {
+      requestData.data = data;
+    }
 
     console.log('Requesting: ', url);
     let response = await axios(requestData);

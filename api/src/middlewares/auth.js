@@ -2,11 +2,15 @@ const { verify } = require('jsonwebtoken');
 
 const isPublicRoute = ({ method, originalUrl }) => {
   const publicRoutes = {
-    GET: ['/varieties', '/wines'],
+    GET: ['/varieties', '/wines', '/reviews/wine'],
     POST: ['/login', '/user'],
   };
 
-  return publicRoutes[method].includes(originalUrl);
+  for(let i = 0; i < publicRoutes[method].length; i++) {
+    if(originalUrl.startsWith(publicRoutes[method][i])) return true;
+  }
+
+  return false;
 }
 
 module.exports = (req, res, next) => {

@@ -51,7 +51,8 @@ const getReviewsByWine = async (req, res) => {
     const reviewsPromise = Review.find({ wine: id })
       .limit(Number(limit))
       .skip(Number(limit * page - limit))
-      .sort(sort);
+      .sort(sort)
+      .populate('user');
 
     const countPromise = Review.countDocuments({ wine: id });
 

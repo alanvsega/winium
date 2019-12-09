@@ -32,7 +32,7 @@ const addAverage = async wine => {
   const reviews = await Review.find({ wine: wine._id });
   const sum = reviews.reduce((acc, review) => (acc + review.points), 0);
   const average = reviews.length
-    ? Math.round(sum / reviews.length)
+    ? (sum / reviews.length).toFixed(2)
     : null;
   return { ...wine, average };
 };
@@ -40,9 +40,9 @@ const addAverage = async wine => {
 const getWines = async (req, res) => {
   try {
     const {
-      limit = 12,
+      limit = 120,
       page = 1,
-      search,
+      search = '',
       sort = '-createdAt',
     } = req.query;
 
