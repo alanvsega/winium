@@ -1,12 +1,12 @@
 const { verify } = require('jsonwebtoken');
 
-const isPublicRoute = ({ method, originalUrl }) => {
+const isPublicRoute = ({ method, path }) => {
   const publicRoutes = {
     GET: ['/varieties', '/wines', '/wines/top', '/reviews/wine'],
     POST: ['/login', '/user'],
   };
 
-  return publicRoutes[method].includes(originalUrl);
+  return publicRoutes[method].includes(path);
 };
 
 module.exports = (req, res, next) => {
