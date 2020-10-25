@@ -8,7 +8,7 @@ import Footer from './components/Footer/index';
 import Home from './pages/Home/index';
 import CreateAccount from './pages/CreateAccount/index';
 import Login from './pages/Login/index';
-import Catalog from './pages/Catalog/index';
+import Catalog from './pages/Catalog';
 
 const App = () => (
   <Router>

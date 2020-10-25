@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
 import './style.css';
 
 import Logo from '../../assets/WiniumLogoWhite.png';
